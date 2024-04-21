@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: gym-report
+          uri: lb://gym-report
+          predicates:
+            - Path=/api/v1/workload/**
+        - id: gym-main
+          uri: lb://gym-main
+          predicates:
+            - Path=/api/v1/{path:[^\\w+]?(?!workload).*}
+
+  application:
+    name: gateway-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone : http://localhost:8761/eureka/
