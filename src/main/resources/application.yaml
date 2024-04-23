@@ -1,5 +1,6 @@
 server:
   port: 8080
+
 spring:
   cloud:
     gateway:
@@ -7,12 +8,15 @@ spring:
         - id: gym-report
           uri: lb://gym-report
           predicates:
-            - Path=/api/v1/workload/**
+            - Path=/api/v1/workload/**, /api/v1/workload
         - id: gym-main
           uri: lb://gym-main
           predicates:
-            - Path=/api/v1/{path:[^\\w+]?(?!workload).*}
-
+            - Path=/api/v1/{path:[^\\w+]?(?!workload).*}/**, /api/v1/{path:[^\\w+]?(?!workload).*}, /swagger-ui/**, /swagger-ui
+        - id: gym-main-swagger-config
+          uri: lb://gym-main
+          predicates:
+            - Path=/swagger-config.yml
   application:
     name: gateway-server
 
