@@ -8,7 +8,7 @@ spring:
         - id: gym-report
           uri: lb://gym-report
           predicates:
-            - Path=/api/v1/workload/**, /api/v1/workload, /api/v1/workload/list, /api/v1/workload/list/**
+            - Path=/api/v1/workload/**, /api/v1/workload
         - id: gym-main
           uri: lb://gym-main
           predicates:
